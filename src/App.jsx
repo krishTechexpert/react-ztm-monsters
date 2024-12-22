@@ -2,7 +2,8 @@ import { useState } from 'react'
 
 import './App.css'
 import React from 'react';
-
+import CardList from './components/card-list/CardList';
+import SearchBox from "./components/search-box/SearchBox";
 const functionReferences = new Set();
 
 class App extends React.Component {
@@ -59,12 +60,9 @@ render(){
 
   return (
     <div className='app'>
-      <input className='search' type="search" placeholder='search monsters' onChange={onChangeSearch} />
-      {monsters.length==0 ? <h2>Loading...</h2>:filteredMonsters.map((monster) => (
-         <div key={monster.id}>
-          <h1>{monster.name}</h1>
-        </div>
-      ))}
+      <h1 className='app-title'>Monsters Rolodex</h1>
+      <SearchBox className='monster-search'  placeholder='search monsters' onChangeHandler={onChangeSearch}/>
+      <CardList monsters={filteredMonsters} />
     </div>
   )
 }
