@@ -6,11 +6,9 @@ import App from './App.jsx'
 import UserProvider from "./contexts/userContext"
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
     <BrowserRouter>
       <UserProvider>
         <App />
       </UserProvider>
     </BrowserRouter>
-  </StrictMode>,
 )

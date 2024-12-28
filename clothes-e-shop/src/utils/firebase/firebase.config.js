@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import {getAuth,signInWithRedirect,signInWithPopup,GoogleAuthProvider,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut} from "firebase/auth";
+import {getAuth,signInWithRedirect,signInWithPopup,GoogleAuthProvider,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,onAuthStateChanged} from "firebase/auth";
 import {getFirestore,doc,getDoc,setDoc} from "firebase/firestore"
 
 const firebaseConfig = {
@@ -32,6 +32,7 @@ export const signInWithGoogleRedirect = () => signInWithRedirect(auth,googleProv
 
 export const db = getFirestore()
 
+// create user collection and store in db
 export const createUserDocumentFromAuth = async(userAuth,additionalUserInfo={}) => {
   if(!userAuth) return;
 
@@ -62,7 +63,7 @@ export const createUserDocumentFromAuth = async(userAuth,additionalUserInfo={}) 
   return userDocRef
   //here finally we create user Collection in firebase
 }
-
+//signup
 export const createAuthUserWithEmailAndPassword = async (email,password) => {
     if(!email || !password) return;
     try{
@@ -73,7 +74,7 @@ export const createAuthUserWithEmailAndPassword = async (email,password) => {
       throw error;
     }
 }
-
+//login
 export const LoginUserWithEmailAndPassword = async (email,password) => {
   if(!email || !password) return;
   try{
@@ -87,3 +88,10 @@ export const LoginUserWithEmailAndPassword = async (email,password) => {
 export const LogOutUser = async () => {
   return await signOut(auth)
 }
+
+//From the onAuthStateChanged Callback: it work such as Observer pattern
+
+//Firebase automatically passes the currentUser object to the callback when the auth state changes.
+
+
+export const onAuthStateChangedListener = (callback) =>  onAuthStateChanged(auth,callback)

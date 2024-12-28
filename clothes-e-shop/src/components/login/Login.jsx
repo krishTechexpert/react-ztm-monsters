@@ -1,9 +1,8 @@
-import React,{useState,useContext} from 'react'
+import React,{useState} from 'react'
 import {signInWithGooglePopup,createUserDocumentFromAuth,LoginUserWithEmailAndPassword} from "../../utils/firebase/firebase.config"
 import FormInput from '../form-input/FormInput';
 import "./login-styles.scss";
 import Button from "../button/Button";
-import { UserContext } from '../../contexts/userContext';
 
 const defaultFormFields = {
   email:'',
@@ -12,7 +11,6 @@ const defaultFormFields = {
 
 export default function Login() {
   const [formFields,setFormFields]=useState(defaultFormFields);
-  const {setCurrentUser}=useContext(UserContext)
   const {email,password}=formFields;
 
   const handleChange = (event) => {
@@ -36,7 +34,6 @@ export default function Login() {
         // The warning about "Cross-origin redirect sign-in is no longer supported in many browsers" means that certain browsers (like Chrome) have started to enforce stricter security policies, which can block cross-origin redirects for authentication.
 
     const {user} = await signInWithGooglePopup()
-     await createUserDocumentFromAuth(user)
   }
 
   const handleSubmit = async(event) => {
@@ -44,8 +41,7 @@ export default function Login() {
     
     try{
       const {user} = await LoginUserWithEmailAndPassword(email,password);
-      setCurrentUser(user)
-          setFormFields(defaultFormFields)
+      setFormFields(defaultFormFields)
     }catch(error){
       switch(error.code){
         case 'auth/invalid-credential':
