@@ -4,8 +4,12 @@ import logo from "../../assets/crown.svg"
 import "./navigation.styles.scss";
 import { UserContext } from '../../contexts/userContext';
 import {LogOutUser} from "../../utils/firebase/firebase.config";
+import CartIcon from "../../components/cart-icon/CartIcon";
+import CartDropdown from '../../components/cart-dropdown/CartDropdown';
+import {CartContext} from "../../contexts/cartContext";
 export default function Navigation() {
   const {currentUser} = useContext(UserContext)
+  const {isCartOpen} = useContext(CartContext)
 
   return (
     <>
@@ -18,8 +22,9 @@ export default function Navigation() {
         <Link className='nav-link' to='/shop'>Shop</Link>
         {currentUser ? <span className='nav-link' onClick={LogOutUser}>SignOut</span>:
         <Link className='nav-link' to='/auth'>SignIn</Link>}
-
+        <CartIcon />
       </div>
+      {isCartOpen && <CartDropdown/>}
       </div>
 
     <Outlet/>
