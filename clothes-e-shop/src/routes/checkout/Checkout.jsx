@@ -2,6 +2,8 @@ import React,{useContext} from 'react'
 import { CartContext } from '../../contexts/cartContext'
 import "./checkout-styles.scss"
 import CheckoutItems from '../../components/checkout-items/CheckoutItems'
+
+
 export default function Checkout() {
   const {cartItems,addItemToCart,removeItemToCart,totalCartBalance} = useContext(CartContext)
   return (
@@ -29,10 +31,8 @@ export default function Checkout() {
         return (
           <CheckoutItems key={cartItem.id} cartItem={cartItem} />
         )
-
       })}
-      <span className='total'>Total:${totalCartBalance}</span>
-    
+      <span className='total'>Total:{totalCartBalance}</span>
     </div>
   )
 }
