@@ -3,13 +3,18 @@ import SHOP_DATA from "../shop-data";
 
 import {addCollectionAndDocuments,getCategoriesAndDocuments} from "../utils/firebase/firebase.config"
 
-export const ProductContext = createContext({
-  products:[]
+export const ProductCategoriesContext = createContext({
+  categoriesMap:{}
 });
 
-export const ProductsProvider = ({children}) => {
-  const [products,setProducts]=useState([]);
-  const value={products}
+// categoriesMap : {
+//   hats:[],
+//   jacket:[]
+// }
+
+export const ProductsCategoriesProvider = ({children}) => {
+  const [categoriesMap,setCategoriesMap]=useState({});
+  const value={categoriesMap}
   console.log(value)
 
   //when app start if we used addCollectionAndDocuments('categories',SHOP_DATA), then it will create collection (categories) in firebase according to SHOP_DATA
@@ -22,10 +27,10 @@ export const ProductsProvider = ({children}) => {
   useEffect(() => {
     const getCategoriesMap = async() => {
     const categoryMap = await getCategoriesAndDocuments()
-      console.log(categoryMap)
+      setCategoriesMap(categoryMap)
     }
     getCategoriesMap()
   },[])
 
-  return <ProductContext.Provider value={value}>{children}</ProductContext.Provider>
+  return <ProductCategoriesContext.Provider value={value}>{children}</ProductCategoriesContext.Provider>
 }

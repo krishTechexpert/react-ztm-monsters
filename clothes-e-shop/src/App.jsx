@@ -4,6 +4,7 @@ import Navigation from './routes/navigation/Navigation';
 import Authentication from './routes/authentication/Authentication';
 import Shop from './routes/shop/Shop';
 import Checkout from './routes/checkout/Checkout';
+import CategoryPreview from './components/category-preview/CategoryPreview';
 
 
 function App() {
@@ -13,7 +14,8 @@ function App() {
         {/* Child routes */}
         {/* index means "When someone visits the main route (/), show this component by default.(Home)" */}
         <Route index element={<Home />} />
-        <Route path="shop" element={<Shop/>} />
+        {/* shop nesting routing */}
+        <Route path="shop/*" element={<Shop/>} /> 
         <Route path="auth" element={<Authentication />} />
         <Route path="checkout" element={<Checkout/>} />
       </Route>
