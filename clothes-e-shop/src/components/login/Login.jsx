@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import {signInWithGooglePopup,createUserDocumentFromAuth,LoginUserWithEmailAndPassword} from "../../utils/firebase/firebase.config"
 import FormInput from '../form-input/FormInput';
 import "./login-styles.scss";
-import Button from "../button/Button";
+import Button,{BUTTON_TYPES_CLASSES} from "../button/Button";
 
 const defaultFormFields = {
   email:'',
@@ -79,7 +79,7 @@ export default function Login() {
         <FormInput label="Password" type="password" required name="password" onChange={handleChange} value={password} />
         <div className='btn-group'>
         <Button type="submit">Login</Button>
-        <Button type="button" onClick={loginWithGoogle} buttonType='google'>Login with Google</Button>
+        <Button type="button" onClick={loginWithGoogle} buttonType={BUTTON_TYPES_CLASSES.google}>Login with Google</Button>
         </div>
       </form>
     </div>

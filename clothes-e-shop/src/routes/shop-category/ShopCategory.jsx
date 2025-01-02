@@ -9,7 +9,6 @@ export default function ShopCategory() {
   const {categoriesMap}  = useContext(ProductCategoriesContext)
   const [products,setProducts]=useState(categoriesMap[category])
   //const products =  categoriesMap[category];it will render everytime when component re-render
-  console.log('shop category...',products)
   useEffect(() => {
     setProducts(categoriesMap[category])
   },[category,categoriesMap])

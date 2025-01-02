@@ -1,5 +1,5 @@
 import React,{useContext,useRef,useEffect} from 'react'
-import "./cart-dropdown-styles.scss"
+import {CartDropdownContainer,EmptyMessage,CartItemsLoop} from  "./cart-dropdown-styles"
 import Button from '../button/Button'
 import CartItems from "../cart-items/CartItems"
 import { CartContext } from '../../contexts/cartContext';
@@ -14,7 +14,7 @@ export default function CartDropdown() {
   }
 
 
-  // to clos cart dropdown outside click
+  // to close cart dropdown outside click
   useEffect(() => {
     function listener(event){
       if(dropDownContainer.current.contains(event.target) || event.target.closest('.cart-icon-container')){
@@ -31,16 +31,16 @@ export default function CartDropdown() {
   },[])
 
   return (
-    <div className='cart-dropdown-container' ref={dropDownContainer}>
-      <div className='cart-items'>
+    <CartDropdownContainer  ref={dropDownContainer}>
+      <CartItemsLoop>
     {cartItems.length ?  cartItems.map((cartItem) => {
       return <CartItems key={cartItem.id} cartItem={cartItem} />
-    }) : <p className='error-message'>Cart is empty</p>}
+    }) : <EmptyMessage>Cart is empty</EmptyMessage>}
 
 
-      </div>
+      </CartItemsLoop>
       <Button onClick={handleCheckout}>GO TO CHECKOUT</Button>
 
-    </div>
+    </CartDropdownContainer>
   )
 }
