@@ -4,8 +4,9 @@ import Button from '../button/Button'
 import CartItems from "../cart-items/CartItems"
 import { CartContext } from '../../contexts/cartContext';
 import {useNavigate} from "react-router-dom"
+import {CartIconContainer} from "../cart-icon/cart-icon-styles"
 export default function CartDropdown() {
-  const {cartItems,setIsCartOpen} = useContext(CartContext)
+  const {cartItems,setIsCartOpen,isCartOpen} = useContext(CartContext)
   const dropDownContainer = useRef();
   const navigate = useNavigate();
 

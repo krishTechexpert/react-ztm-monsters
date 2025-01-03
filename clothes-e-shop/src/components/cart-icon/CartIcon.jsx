@@ -8,7 +8,7 @@ export default function CartIcon() {
     setIsCartOpen(!isCartOpen)
   }
   return (
-    <CartIconContainer onClick={toggleIsCartOpen}>
+    <CartIconContainer className='cart-icon-container' onClick={toggleIsCartOpen}>
       <ShoppingIcon src={cartIcon}/>
       <ItemCount>{cartCount}</ItemCount>
     </CartIconContainer>
