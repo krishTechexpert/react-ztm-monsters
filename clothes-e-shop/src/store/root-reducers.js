@@ -8,3 +8,6 @@ export const rootReducer = combineReducers({
   user:userReducer,
   categories:categoriesReducer
 })
+
+//Whenever reducer(userReducer or categoriesReducer) updates any of these reducer values, the entire store object is going to be a new store object.
+

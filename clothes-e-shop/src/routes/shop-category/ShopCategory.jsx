@@ -11,7 +11,17 @@ export default function ShopCategory() {
   const {category} = useParams();
   console.log('render/re-render Shopcategory component')
 
-  const categories = useSelector(selectCategoriesMap) // asyncronus 
+  const categories = useSelector(selectCategoriesMap) // this will return new object everytime which will re-render this component as well that's why we used reSelect libraray for useSelector memomization 
+  /*
+  useSelector Execution:
+
+  useSelector(selectCategoriesMap) is called.
+  The selectCategoriesMap function runs immediately and synchronously.
+  Since the initial Redux state might still be empty, the selector logs:
+  selector fired; selectCategoriesMap
+  and returns an empty object {}.*/
+  
+
   const [products,setProducts]=useState(categories[category]) //categories {} first time
 
   console.log("products=",products,categories) // product undefined first time
@@ -39,6 +49,7 @@ A] Initial Render
 1.) Component Render Begins:
 
 ShopCategory is rendered for the first time.
+
 useParams is called to extract the category parameter from the URL.
 A console.log statement logs:
 
@@ -47,9 +58,14 @@ render/re-render Shopcategory component
 
 2. Selector Execution (selectCategoriesMap):
 
-useSelector(selectCategoriesMap) is invoked.
-The selectCategoriesMap selector executes and logs:
-selector fired; selectCategoriesMap
+
+  useSelector(selectCategoriesMap) is called.
+  The selectCategoriesMap function runs immediately and synchronously.
+  Since the initial Redux state might still be empty, the selector logs:
+  selector fired; selectCategoriesMap
+  and returns an empty object {}.because before action dispatch categoryReducer return default state categories:{} empty object firsTime
+
+  
 
 
 3.useState Initialization:
@@ -68,31 +84,34 @@ Inside the effect:
 A console.log logs:
 useEffect fired calling setproducts for shopCategory
 
-The setProducts(categories[category]) call is made. Since categories is still {}, categories[category] remains undefined, so no change occurs.
+The setProducts(categories[category]) call is made. Since categories is still {}, categories[category] remains undefined, undefined === undefined is true so no change occurs.
 
 
 B] State Update from Redux
 
-1. Redux State Updates:
 
-The Redux state is updated (e.g., after fetching data from an API), triggering selectCategoriesMap to re-execute.
-The selector logs:
+1.)send Action Dispatch:
+
+Redux state is updated (e.g., data is fetched and stored in state.categories.categories) and store is also updated.
+This triggers a re-run of selectCategoriesMap.it will first update and sync state with store
 selector fired; selectCategoriesMap
 
-This time, selectCategoriesMap returns the correct transformed categories map based on the updated state.
+2.) Selector Re-Runs:
 
-2. useEffect Triggered:
+selectCategoriesMap is called again due to the state change.b'coz it will first update and sync state with store 
+It now computes the updated categories map and logs: 
+selector fired; selectCategoriesMap
 
-Since categories has changed, the useEffect dependency array [categories] detects the change and re-executes.
-A console.log logs:
-useEffect fired calling setproducts for shopCategory
+3.) useEffect Re-Triggers:
 
-setProducts(categories[category]) is called again, but this time categories[category] contains the correct product list for the current category.
-The state update (setProducts) triggers a re-render of the component.
+The categories object has changed, so the useEffect hook re-runs.
+setProducts(categories[category]) is called with the updated categories.
+This updates the products state and triggers a re-render of the component.
 
 
 c] Re-Render After State Update
 
+it will make sure yadi useSelector used hwa hai inside anywhere in  app then it will first update our state then usky baad comonent re-render krega (very imp line here)
 
 1.) Component Re-Renders:
 
@@ -105,15 +124,6 @@ render/re-render Shopcategory component
 The products.map() loop runs and renders a ProductCard for each product in the list.
 
 
-
-D] Key Points to Note
-Why is categories Initially Empty?
-
-Redux state is asynchronous. Initially, the state might not contain data (e.g., it's still fetching), so categories is {}.
-Why Does useEffect Depend on categories?
-
-Whenever categories is updated (e.g., via Redux), the useEffect ensures that products is re-synced to the current category.
-What Causes Re-Renders?
-
-Changes in state (products) or props (category) will trigger a re-render.
-*/
+/*Final Notes
+useSelector is synchronous; it immediately retrieves data from the store. and update/syn state in app first usky baad component re-render
+Re-renders are caused by changes in state or props.*/
