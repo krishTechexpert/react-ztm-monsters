@@ -11,7 +11,7 @@ export default function ShopCategory() {
   const {category} = useParams();
   console.log('render/re-render Shopcategory component')
 
-  const categories = useSelector(selectCategoriesMap) // this will return new object everytime which will re-render this component as well that's why we used reSelect libraray for useSelector memomization 
+  const categories = useSelector(selectCategoriesMap) // if we don't used reselect library then this will return new object everytime which will re-render this component as well that's why we used reSelect libraray for useSelector memomization 
   /*
   useSelector Execution:
 
