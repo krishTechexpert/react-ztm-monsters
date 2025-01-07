@@ -1,39 +1,23 @@
 import {createStore,compose,applyMiddleware} from 'redux'
-//import logger from 'redux-logger'
+import logger from 'redux-logger'
 import {persistStore,persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import { rootReducer } from './root-reducers'
+import{myloggerMiddleWare} from "./middleware/logger"
 
 //whenever you dispatch an action before that action hits the reducer, it hits the middleware(logger,redux-thunk) first.
 // logger is like middleware which is used to check state before and after action is dispatch
 
-// similar our custom middleware work as redux-logger
-const myloggerMiddleWare = (store) => (next) => (action) => {
-  if(!action.type){
-    return
-  }
-  console.log('type: ',action.type);
-  console.log('payload: ',action.payload)
-  console.log('currentState: ',store.getState())
-  
-  next(action) // synchronous hai y
+// redux prebuild logger
+const middleWares = [process.env.NODE_ENV !== 'production' && logger].filter(Boolean);//[fn]
 
-  console.log('next state ',store.getState())
-}
+//custom middleware
+//const middleWares = [myloggerMiddleWare];
 
 
-// const curryFn = (a) => (b,c) => {
-//   return a+b-c;
-// }
+const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
-// const with = curryFn(10)
-// console.log(with(2,3))
-
-//const middleWares = [logger];
-
-const middleWares = [myloggerMiddleWare];
-
-const composedEnhancers = compose(applyMiddleware(...middleWares));
+const composedEnhancers = composeEnhancers(applyMiddleware(...middleWares));
 
 //firstArgument: reducer,
 //secondArgument(optional): if you want to add any additional default states
