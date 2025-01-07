@@ -42,7 +42,7 @@ import {createSelector} from 'reselect'
 
 const selectCategoryReducer = (state) => {
   console.log('selector 1 fired')
- return state.categories // which points to categoriesReducer which return categories:[...]
+ return state.categories // which points to categoriesReducer which return {categories:[...]}
 }
 // it will memoized categories array if state.categories is same
 //for extracting the required data (categories).
