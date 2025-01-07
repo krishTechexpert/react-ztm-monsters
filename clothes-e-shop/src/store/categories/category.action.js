@@ -1,5 +1,30 @@
 import {CATEGORY_ACTION_TYPES} from "./category.types";
+import {getCategoriesAndDocuments} from "../../utils/firebase/firebase.config"
 
-export const setCategories = (categoriesArray) =>{
-  return {type:CATEGORY_ACTION_TYPES.SET_CATEGORIES,payload:categoriesArray}
+// below actions for redux thunk
+export const fetchCategoriesStart = () => {
+  return {type:CATEGORY_ACTION_TYPES.FETCH_CATEGORIES_START,}
+}
+
+export const fetchCategoriesSuccess = (categoriesArray) => {
+  return {type:CATEGORY_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS,payload:categoriesArray}
+}
+
+export const fetchCategoriesError = (error) => {
+  return {type:CATEGORY_ACTION_TYPES.FETCH_CATEGORIES_FAILED,payload:error}
+}
+
+//async action creator
+
+export const fetchCategoriesAsync = () => {
+  return async(dispatch) => {
+    dispatch(fetchCategoriesStart())
+    try{
+      //then fetch data categories from firebase
+    const categoriesArray =   await getCategoriesAndDocuments();
+    dispatch(fetchCategoriesSuccess(categoriesArray))
+    }catch(error){
+      dispatch(fetchCategoriesError(error))
+    }
+  }
 }

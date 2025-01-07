@@ -2,6 +2,7 @@ import React from 'react'
 import "./category-preview-styles.scss"
 import ProductCard from '../product-card/ProductCard'
 import { useParams , Link} from 'react-router-dom';
+
 export default function CategoryPreview({title,products}) {
   return (
     <div className='category-preview-container'>

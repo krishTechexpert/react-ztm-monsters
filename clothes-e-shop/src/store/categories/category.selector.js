@@ -20,6 +20,8 @@
 //       { title: "Hats", items: [/* ... */] },
 //       { title: "Jackets", items: [/* ... */] },
 //     ],
+//    error:null,
+//    isLoading:null
 //   },
 // };
 
@@ -73,7 +75,10 @@ export const selectCategoriesMap = createSelector(
   }
 )
 
-
+export const selecCategoriesIsLoading = createSelector(
+  [selectCategoryReducer],
+  (categoriesSlice) => categoriesSlice.isLoading
+)
 
 /**
  * The Reselect library in Redux is used to create memoized selectors that derive and compute data efficiently from the Redux state. Without Reselect, accessing and transforming the Redux state in a performant way can be challenging. 

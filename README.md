@@ -7,3 +7,4 @@ Redux library:
 redux-logger,
 reselect
 redux-persist
+redux-thunk

@@ -1,4 +1,6 @@
 import {createStore,compose,applyMiddleware} from 'redux'
+import {thunk} from 'redux-thunk'
+
 import logger from 'redux-logger'
 import {persistStore,persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
@@ -9,7 +11,7 @@ import{myloggerMiddleWare} from "./middleware/logger"
 // logger is like middleware which is used to check state before and after action is dispatch
 
 // redux prebuild logger
-const middleWares = [process.env.NODE_ENV !== 'production' && logger].filter(Boolean);//[fn]
+const middleWares = [process.env.NODE_ENV !== 'production' && logger,thunk].filter(Boolean);//[fn]
 
 //custom middleware
 //const middleWares = [myloggerMiddleWare];
@@ -19,17 +21,20 @@ const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOO
 
 const composedEnhancers = composeEnhancers(applyMiddleware(...middleWares));
 
-//firstArgument: reducer,
-//secondArgument(optional): if you want to add any additional default states
-//thirdArguments(optional): middleware
 
 const persistConfig={
   key:'root',
   storage, // default stotage is localstorage,
-  blacklist:['user'] // user will not put in localstorage
+  //blacklist:['user'] // user will not put in localstorage
+  whitelist:['cart']
 }
 
 const persistedReducer = persistReducer(persistConfig,rootReducer)
+
+
+//firstArgument: reducer,
+//secondArgument(optional): if you want to add any additional default states
+//thirdArguments(optional): middleware
 
 export const store = createStore(persistedReducer,undefined,composedEnhancers)
 
