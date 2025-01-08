@@ -1,5 +1,5 @@
 import {createStore,compose,applyMiddleware} from 'redux'
-import {thunk} from 'redux-thunk'
+//import {thunk} from 'redux-thunk'
 
 import logger from 'redux-logger'
 import {persistStore,persistReducer} from 'redux-persist'
@@ -7,11 +7,27 @@ import storage from 'redux-persist/lib/storage'
 import { rootReducer } from './root-reducers'
 import{myloggerMiddleWare} from "./middleware/logger"
 
+import createSagaMiddleware from "redux-saga"
+import {rootSaga} from "./root-saga" 
+
+const persistConfig={
+  key:'root',
+  storage, // default stotage is localstorage,
+  //blacklist:['user'] // user will not put in localstorage
+  whitelist:['cart']
+}
+
+const sagaMiddleware= createSagaMiddleware();
+
+const persistedReducer = persistReducer(persistConfig,rootReducer)
+
+
+
 //whenever you dispatch an action before that action hits the reducer, it hits the middleware(logger,redux-thunk) first.
 // logger is like middleware which is used to check state before and after action is dispatch
 
 // redux prebuild logger
-const middleWares = [process.env.NODE_ENV !== 'production' && logger,thunk].filter(Boolean);//[fn]
+const middleWares = [process.env.NODE_ENV !== 'production' && logger,sagaMiddleware].filter(Boolean);//[fn]
 
 //custom middleware
 //const middleWares = [myloggerMiddleWare];
@@ -21,28 +37,20 @@ const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOO
 
 const composedEnhancers = composeEnhancers(applyMiddleware(...middleWares));
 
-
-const persistConfig={
-  key:'root',
-  storage, // default stotage is localstorage,
-  //blacklist:['user'] // user will not put in localstorage
-  whitelist:['cart']
-}
-
-const persistedReducer = persistReducer(persistConfig,rootReducer)
-
-
 //firstArgument: reducer,
 //secondArgument(optional): if you want to add any additional default states
 //thirdArguments(optional): middleware
 
 export const store = createStore(persistedReducer,undefined,composedEnhancers)
 
+sagaMiddleware.run(rootSaga) // entry poinst for saga who listen/watcher saga action
+
 export const persistor =persistStore(store)
 
-/*
-Flow of Redux Updates with useSelector
 
+
+/*
+Flow of Redux Updates with useSelector if you are using  in case of redux-thunk 
 
 1.) Action Dispatch:
 

@@ -8,3 +8,4 @@ redux-logger,
 reselect
 redux-persist
 redux-thunk
+redux-saga

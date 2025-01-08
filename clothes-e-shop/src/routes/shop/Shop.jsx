@@ -6,13 +6,13 @@ import ShopCategory from '../shop-category/ShopCategory';
 
 import { useDispatch } from "react-redux";
 
-import {fetchCategoriesAsync} from "../../store/categories/category.action"
+import {fetchCategoriesStart} from "../../store/categories/category.action"
 
 export default function Shop() {
   const dispatch=useDispatch(); 
 
 useEffect(() => {
-  dispatch(fetchCategoriesAsync())
+  dispatch(fetchCategoriesStart()) //call for saga action
 },[])
   return (
     <Routes>
