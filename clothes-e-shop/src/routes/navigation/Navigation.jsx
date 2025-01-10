@@ -1,19 +1,19 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import {useSelector} from 'react-redux';
+import {useSelector,useDispatch} from 'react-redux';
 import logo from "../../assets/crown.svg"
 import {NavigationContainer,LogoContainer,NavLinks,NavLink} from  "./navigation.styles.jsx";
-import {LogOutUser} from "../../utils/firebase/firebase.config";
 import CartIcon from "../../components/cart-icon/CartIcon";
 import CartDropdown from '../../components/cart-dropdown/CartDropdown';
 import {userSelector} from "../../store/user/user.selector.js"
 import {selectIsCartOpen} from "../../store/cart/cart.selector"
+import {signOutStart} from "../../store/user/user.action.js";
+
 
 export default function Navigation() {
+  const dispatch = useDispatch()
   const currentUser=useSelector(userSelector)
   const isCartOpen =  useSelector(selectIsCartOpen)
-
-
   return (
     <>
     <NavigationContainer>
@@ -23,7 +23,7 @@ export default function Navigation() {
       
       <NavLinks>
         <NavLink to='/shop'>Shop</NavLink>
-        {currentUser ? <NavLink as="span" onClick={LogOutUser}>SignOut</NavLink>:
+        {currentUser ? <NavLink as="span" onClick={() => dispatch(signOutStart())}>SignOut</NavLink>:
         <NavLink  to='/auth'>SignIn</NavLink>}
         <CartIcon />
       </NavLinks>

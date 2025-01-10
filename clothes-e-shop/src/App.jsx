@@ -1,7 +1,6 @@
 import React,{useEffect} from "react";
 import {Routes,Route} from 'react-router-dom';
 import { useDispatch } from "react-redux";
-import {onAuthStateChangedListener,createUserDocumentFromAuth,getCurrentUser,getCategoriesAndDocuments} from "./utils/firebase/firebase.config";
 
 
 import Home from "./routes/home/Home"
@@ -10,14 +9,14 @@ import Authentication from './routes/authentication/Authentication';
 import Shop from './routes/shop/Shop';
 import Checkout from './routes/checkout/Checkout';
 
-import {setCurrentUser} from "./store/user/user.action";
+import {checkUserSession} from "./store/user/user.action";
 
 function App() {
   const dispatch=useDispatch(); 
 
 useEffect(() => {
-  getCurrentUser().then((user) => console.log(user))
-})
+  dispatch(checkUserSession())
+},[dispatch])
 
   // very Imp note:  dispatch will never change it is always to going to be same reference. App component runs once .
   // useEffect(() => {

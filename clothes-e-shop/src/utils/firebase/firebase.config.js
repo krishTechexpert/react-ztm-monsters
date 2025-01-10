@@ -79,7 +79,7 @@ export const getCategoriesAndDocuments = async() => {
 export const createUserDocumentFromAuth = async(userAuth,additionalUserInfo={}) => {
   if(!userAuth) return;
 
-  const userDocRef = doc(db,'users',userAuth.uid) // users:collection name,uid will get after login by google provider signIN
+  const userDocRef = doc(db,'users',userAuth.uid) /// it point to user in db
   
   //console.log("userDocRef=",userDocRef)
 
@@ -103,7 +103,8 @@ export const createUserDocumentFromAuth = async(userAuth,additionalUserInfo={}) 
   }
 
   // if user data exist then return userDocRef
-  return userDocRef
+  return userSnapshot
+  //userSnapshot: users:collection name,uid will get after login by google provider signIN
   //here finally we create user Collection in firebase
 }
 //signup
@@ -145,7 +146,7 @@ export const getCurrentUser = () => {
       unsubscribe()
       resolve(userAuth)
     },
-    reject
+    reject//3rd parameter of onAuthStateChanged
   )
   
   })
