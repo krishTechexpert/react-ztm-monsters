@@ -118,3 +118,23 @@ export function* userSagas(){
   ])
 
 }
+
+
+//chat gpt example
+// function* loginSaga(action) {
+//   let attempts = 0;
+//   while (attempts < 3) {
+//     try {
+//       const user = yield call(firebaseAuth.signInWithEmailAndPassword, action.payload.email, action.payload.password);
+//       yield put({ type: 'LOGIN_SUCCESS', user });
+//       return; // Exit on success
+//     } catch (error) {
+//       attempts += 1;
+//       if (attempts === 3) {
+//         yield put({ type: 'LOGIN_FAILURE', error });
+//       } else {
+//         yield delay(1000); // Wait before retrying
+//       }
+//     }
+//   }
+// }
