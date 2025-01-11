@@ -9,13 +9,56 @@ import Authentication from './routes/authentication/Authentication';
 import Shop from './routes/shop/Shop';
 import Checkout from './routes/checkout/Checkout';
 
-import {checkUserSession} from "./store/user/user.action";
+import {setCurrentUser} from "./store/user/user.reducer";
+import {onAuthStateChangedListener,createUserDocumentFromAuth} from "./utils/firebase/firebase.config"
+
 
 function App() {
   const dispatch=useDispatch(); 
 
 useEffect(() => {
-  dispatch(checkUserSession())
+  const Unsubscribe =  onAuthStateChangedListener((user) => {
+      if(user) {
+        createUserDocumentFromAuth(user)
+      }
+      
+      dispatch(setCurrentUser(user)) //solution 1
+      // if we passed payload which comes from firebase which is not string,object, but it is kind of non-serializable values such as Promises, Symbols, Maps/Sets, functions, or class instances then we show error
+      //A non-serializable value was detected in an action, in the path: `payload`. Value: 
+      //https://redux-toolkit.js.org/usage/usage-guide#working-with-non-serializable-data
+      //Avoid putting non-serializable values such as Promises, Symbols, Maps/Sets, functions, or class instances into the Redux store state or dispatched actions.
+      //we can fixed this error to configure with our store
+      //export const store = configureStore({
+        //reducer:rootReducer,
+        //middleware:middleWares // default redux-thunk middleware available in redux-toolkit
+      
+        // to fixed above error
+        //A non-serializable value was detected in an action, in the path: `payload`. Value:
+        //middleware:(getDefaultMiddleware) => getDefaultMiddleware({serializableCheck:false}).concat(middleWares)
+        
+        //which return default middlware and we can concat with our custom middleware as well
+      //})
+      
+      // solution 2: 
+      //const pickedUser = user && (({accessToken,email}) => ({accessToken,email}))(user)
+      //dispatch(setCurrentUser(pickedUser))
+      //same with regular function 
+    //   function extractUserProperties(user) {
+    //     if (!user) {
+    //         return null; // If user is null or undefined, return null.
+    //     }
+        
+    //     // Extract only accessToken and email properties from the user object.
+    //     const { accessToken, email } = user;
+    //     return { accessToken, email };
+    // }
+    
+    // const pickedUser = extractUserProperties(user);
+    
+    })
+    return () => {
+      Unsubscribe(); 
+  };
 },[dispatch])
 
   // very Imp note:  dispatch will never change it is always to going to be same reference. App component runs once .

@@ -39,12 +39,12 @@ export default function Login() {
     dispatch(googleSignInStart()) // redux-saga used here
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
     
     try{
-      //const {user} = await LoginUserWithEmailAndPassword(email,password); for redux-thunk
-      dispatch(emailSignInStart(email,password))
+      const {user} = await LoginUserWithEmailAndPassword(email,password); //for redux-thunk
+      //dispatch(emailSignInStart(email,password)) // redux saga
       setFormFields(defaultFormFields)
     }catch(error){
       switch(error.code){
