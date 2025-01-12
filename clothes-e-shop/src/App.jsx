@@ -1,6 +1,6 @@
 import React,{useEffect} from "react";
 import {Routes,Route} from 'react-router-dom';
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 
 
 import Home from "./routes/home/Home"
@@ -15,6 +15,13 @@ import {onAuthStateChangedListener,createUserDocumentFromAuth} from "./utils/fir
 
 function App() {
   const dispatch=useDispatch(); 
+  
+  // Immutable middleware concept
+  const res = useSelector(state => state.user.test) // test:[3,2,1] or test:{a:1}
+  //res.sort()
+  //res.a=2; we are try to modify value of a directly inside store which give error
+//res.sort()//middleware also help keta hai to prevent directly state ko chnage nhi ker sekty inside store , which give error such as Uncaught TypeError: Cannot assign to read only property '0' of object '[object Array]'
+
 
 useEffect(() => {
   const Unsubscribe =  onAuthStateChangedListener((user) => {

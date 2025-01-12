@@ -47,7 +47,7 @@ export const store = configureStore({
   //A non-serializable value was detected in an action, in the path: `payload`. Value:
   middleware:(getDefaultMiddleware) => getDefaultMiddleware({serializableCheck:false}).concat(middleWares)
   
-  //which return default middlware and we can concat with our custom middleware as well
+  //which return default middlware and then we can concat with our custom middleware as well
 })
 
 

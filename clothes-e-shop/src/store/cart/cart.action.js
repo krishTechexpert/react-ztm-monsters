@@ -3,7 +3,7 @@ import { CART_ACTION_TYPES } from "./cart.types"
 
 
 //helper Fn
-function addCartItem(cartItems,product){
+export function addCartItem(cartItems,product){
   // find if cartItems already contains product if found then increment quantity
   const existingCartItem = cartItems.find((cartItem) => cartItem.id === product.id)
   if(existingCartItem){
@@ -14,7 +14,7 @@ function addCartItem(cartItems,product){
   return [...cartItems,{...product,quantity:1}]
 } 
 
-function updateCartItem(cartItems,updateCartItem){
+export function updateCartItem(cartItems,updateCartItem){
   //find the cartItem to remove
   const existingCartItem = cartItems.find((cartItem) => cartItem.id === updateCartItem.id)
 
@@ -28,22 +28,27 @@ function updateCartItem(cartItems,updateCartItem){
   })
 }
 
-
-export const addItemToCart = (cartItems,productToAdd) => {
-  const newCartItems = addCartItem(cartItems,productToAdd)
-  return {type:CART_ACTION_TYPES.SET_CART_ITEMS,payload:newCartItems}
+export function removeCartItem(cartItems,removeItem){
+  return cartItems.filter(cartItem => cartItem.id !== removeItem.id)
 }
 
-export const updateItemToCart = (cartItems,cartItemToUpdate) => {
-  const newCartItems = updateCartItem(cartItems,cartItemToUpdate)
-  return {type:CART_ACTION_TYPES.SET_CART_ITEMS,payload:newCartItems}
-}
 
-export const removeItemToCart = (cartItems,cartItemToRemove) => {
-  const newCartItems = cartItems.filter(cartItem => cartItem.id !== cartItemToRemove.id)
-  return {type:CART_ACTION_TYPES.SET_CART_ITEMS,payload:newCartItems}
-}
+// without redux tookoit below code
+// export const addItemToCart = (cartItems,productToAdd) => {
+//   const newCartItems = addCartItem(cartItems,productToAdd)
+//   return {type:CART_ACTION_TYPES.SET_CART_ITEMS,payload:newCartItems}
+// }
 
-export const setIsCartOpen = (boolean) => {
-  return {type:CART_ACTION_TYPES.SET_IS_CART_OPEN,payload:boolean}
-}
+// export const updateItemToCart = (cartItems,cartItemToUpdate) => {
+//   const newCartItems = updateCartItem(cartItems,cartItemToUpdate)
+//   return {type:CART_ACTION_TYPES.SET_CART_ITEMS,payload:newCartItems}
+// }
+
+// export const removeItemToCart = (cartItems,cartItemToRemove) => {
+//   const newCartItems = cartItems.filter(cartItem => cartItem.id !== cartItemToRemove.id)
+//   return {type:CART_ACTION_TYPES.SET_CART_ITEMS,payload:newCartItems}
+// }
+
+// export const setIsCartOpen = (boolean) => {
+//   return {type:CART_ACTION_TYPES.SET_IS_CART_OPEN,payload:boolean}
+// }

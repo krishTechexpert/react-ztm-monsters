@@ -9,3 +9,4 @@ reselect
 redux-persist
 redux-thunk
 redux-saga
+redux-toolkit

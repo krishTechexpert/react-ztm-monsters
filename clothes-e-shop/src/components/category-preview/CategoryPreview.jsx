@@ -10,7 +10,7 @@ export default function CategoryPreview({title,products}) {
         <Link to={title} className='title'>{title.toUpperCase()}</Link>
       </h2>
       <div className='preview'>
-        {products
+        { products
           .filter((_,index) => index<4)
           .map((product) => (
             <ProductCard key={product.id} product={product} />
