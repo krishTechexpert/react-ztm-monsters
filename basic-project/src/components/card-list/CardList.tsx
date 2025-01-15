@@ -1,12 +1,16 @@
 import React from 'react';
 import "./card-list-style.css";
+import { Monster } from '../../App';
 
-const CardList = (props) => {
-    const {monsters} = props;
+type CardProps = {
+  monsters:Monster[]
+}
+
+const CardList = ({monsters}:CardProps) => {
 
     return (<div className='card-list'>
-      {monsters.map((monster) => {
-        const {name,email,id} = monster;
+      {monsters.map((monster:Monster) => {
+        const {id,name,email} = monster;
         return (
           <div className='card-container' key={id}>
             <img alt={`monster-${name}`}
