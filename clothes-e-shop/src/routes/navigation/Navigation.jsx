@@ -7,8 +7,8 @@ import CartIcon from "../../components/cart-icon/CartIcon";
 import CartDropdown from '../../components/cart-dropdown/CartDropdown';
 import {userSelector} from "../../store/user/user.selector.js"
 import {selectIsCartOpen} from "../../store/cart/cart.selector"
-import {signOutStart} from "../../store/user/user.action.js";
-
+import {signOutStart} from "../../store/user/user.reducer.js";
+import {LogOutUser} from "../../utils/firebase/firebase.config.js"
 
 export default function Navigation() {
   const dispatch = useDispatch()
@@ -23,7 +23,7 @@ export default function Navigation() {
       
       <NavLinks>
         <NavLink to='/shop'>Shop</NavLink>
-        {currentUser ? <NavLink as="span" onClick={() => dispatch(signOutStart())}>SignOut</NavLink>:
+        {currentUser ? <NavLink as="span" onClick={() => dispatch(signOutStart(LogOutUser()))}>SignOut</NavLink>:
         <NavLink  to='/auth'>SignIn</NavLink>}
         <CartIcon />
       </NavLinks>

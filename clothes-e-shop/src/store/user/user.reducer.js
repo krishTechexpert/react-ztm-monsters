@@ -11,13 +11,16 @@ export const userSlice = createSlice({
   reducers:{
     setCurrentUser(state,action){
       state.currentUser = action.payload
+    },
+    signOutStart(state,action){
+      state.currentUser=null;
     }
   }
   
  })
 
 // console.log("userSlice=",userSlice)
-export const {setCurrentUser} = userSlice.actions;
+export const {setCurrentUser,signOutStart} = userSlice.actions;
 
 export const userReducer = userSlice.reducer // you will get actual reducer function(userReducer) that get generated from create slice
 
