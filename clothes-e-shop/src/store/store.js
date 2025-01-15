@@ -39,7 +39,7 @@ const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOO
 //export const store = createStore(persistedReducer,undefined,composedEnhancers)
 
 export const store = configureStore({
-  reducer:rootReducer,
+  reducer:persistedReducer,
   //middleware:middleWares // default redux-thunk middleware available in redux-toolkit
 
   // to fixed below error
@@ -52,7 +52,7 @@ export const store = configureStore({
 
 
 
-//export const persistor =persistStore(store)
+export const persistor =persistStore(store)
 
 
 

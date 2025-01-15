@@ -1,5 +1,5 @@
 import React from 'react'
-import {BaseButton,GoolgeSignInButton,InvertedButton} from  "./button-styles.jsx"
+import {BaseButton,ButtonSpinner,GoolgeSignInButton,InvertedButton} from  "./button-styles.jsx"
 
 export const BUTTON_TYPES_CLASSES = {
   base:'default',
@@ -15,9 +15,11 @@ const getButtons = (buttonType=BUTTON_TYPES_CLASSES.base) => ({
 
 
 
-export default function Button({children,buttonType=BUTTON_TYPES_CLASSES.default,...otherprops}) {
+export default function Button({children,buttonType=BUTTON_TYPES_CLASSES.default,isLoading,...otherprops}) {
   const CustomButton = getButtons(buttonType)
   return (
-    <CustomButton  {...otherprops}>{children}</CustomButton>
+    <CustomButton disabled={isLoading}  {...otherprops}>
+      {isLoading ? <ButtonSpinner/> : children}
+    </CustomButton>
   )
 }

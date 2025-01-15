@@ -4,6 +4,8 @@ import CheckoutItems from '../../components/checkout-items/CheckoutItems'
 import { useSelector } from 'react-redux'
 
 import {selectCartTotal,selectCartItems} from "../../store/cart/cart.selector"
+import PaymentForm from '../../components/payment-form/PaymentForm'
+
 
 export default function Checkout() {
   const cartItems = useSelector(selectCartItems)
@@ -35,6 +37,7 @@ export default function Checkout() {
         )
       })}
       <span className='total'>Total:{totalCartBalance}</span>
+      {totalCartBalance && <PaymentForm />}
     </div>
   )
 }
