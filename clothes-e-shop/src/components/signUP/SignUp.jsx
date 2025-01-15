@@ -36,9 +36,9 @@ export default function SignUp() {
       return;
     }
     try{
-      //const {user} = await createAuthUserWithEmailAndPassword(email,password);// for redux-thunk
-      //await createUserDocumentFromAuth(user,{displayName}) // // for redux-thunk
-      dispatch(signUpStart(email,password,displayName))
+      const {user} = await createAuthUserWithEmailAndPassword(email,password);// for redux-thunk
+      await createUserDocumentFromAuth(user,{displayName}) // // for redux-thunk
+      //dispatch(signUpStart(email,password,displayName))//redux-saga
       setFormFields(defaultFormFields)
     }catch(error){
       if(error.code === 'auth/email-already-in-use') {
