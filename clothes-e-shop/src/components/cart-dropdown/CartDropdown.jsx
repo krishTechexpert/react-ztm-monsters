@@ -6,7 +6,7 @@ import { CartContext } from '../../contexts/cartContext';
 import {useNavigate} from "react-router-dom"
 import {CartIconContainer} from "../cart-icon/cart-icon-styles"
 import { useSelector,useDispatch } from 'react-redux';
-import {setIsCartOpen} from "../../store/cart/cart.reducer"
+import {setIsCartOpen} from "../../store/cart/cart.action"
 import {selectCartItems,selectIsCartOpen} from "../../store/cart/cart.selector"
 export default function CartDropdown() {
   const dispatch = useDispatch()

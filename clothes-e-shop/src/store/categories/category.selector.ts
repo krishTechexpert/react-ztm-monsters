@@ -29,7 +29,7 @@
 //with reselect 
 import {createSelector} from 'reselect'
 import { CategoriesState } from './category.reducer'
-import {CategoryMap} from "./category.types";
+import {CategoryMap,Category} from "./category.types";
 // So create selector does that with selectors.
 
 // It memorizes them, assuming that as long as the inputs have not changed, then your output should always  be the same(previous state).
@@ -37,7 +37,7 @@ import {CategoryMap} from "./category.types";
 
 const selectCategoryReducer = (state:CategoriesState) => {
   console.log('selector 1 fired')
- return state.categories // which points to categoriesReducer which return {categories:[...],isLoading,error}
+ return state.categories // which points to categoriesReducer which return {categories:[...]}
 }
 
 export const selectCategories = createSelector(
@@ -54,7 +54,7 @@ export const selectCategoriesMap = createSelector(
   [selectCategories],
   (categories):CategoryMap =>{
     console.log('selector 3 fired')
-    return categories.reduce((acc,category) => {
+    return categories.reduce((acc:CategoryMap,category:Category) => {
       const {title,items} = category;
       acc[title.toLowerCase()]=items
       return acc;

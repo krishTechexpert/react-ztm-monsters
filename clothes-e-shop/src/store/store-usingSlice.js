@@ -1,59 +1,63 @@
-import {createStore,compose,applyMiddleware} from 'redux'
-//import logger from 'redux-logger'
+//import {createStore,compose,applyMiddleware} from 'redux'
+import {configureStore} from "@reduxjs/toolkit"
+import logger from 'redux-logger'
 import {persistStore,persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import { rootReducer } from './root-reducers'
+import { rootReducer } from './root-reducers-slice'
+import{myloggerMiddleWare} from "./middleware/logger"
 
-//whenever you dispatch an action before that action hits the reducer, it hits the middleware(logger,redux-thunk) first.
-// logger is like middleware which is used to check state before and after action is dispatch
-
-// similar our custom middleware work as redux-logger
-const myloggerMiddleWare = (store) => (next) => (action) => {
-  if(!action.type){
-    return
-  }
-  console.log('type: ',action.type);
-  console.log('payload: ',action.payload)
-  console.log('currentState: ',store.getState())
-  
-  next(action) // synchronous hai y
-
-  console.log('next state ',store.getState())
-}
-
-
-// const curryFn = (a) => (b,c) => {
-//   return a+b-c;
-// }
-
-// const with = curryFn(10)
-// console.log(with(2,3))
-
-//const middleWares = [logger];
-
-const middleWares = [myloggerMiddleWare];
-
-const composedEnhancers = compose(applyMiddleware(...middleWares));
-
-//firstArgument: reducer,
-//secondArgument(optional): if you want to add any additional default states
-//thirdArguments(optional): middleware
 
 const persistConfig={
   key:'root',
   storage, // default stotage is localstorage,
-  blacklist:['user'] // user will not put in localstorage
+  //blacklist:['user'] // user will not put in localstorage
+  whitelist:['cart']
 }
+
 
 const persistedReducer = persistReducer(persistConfig,rootReducer)
 
-export const store = createStore(persistedReducer,undefined,composedEnhancers)
+
+
+//whenever you dispatch an action before that action hits the reducer, it hits the middleware(logger,redux-thunk) first.
+// logger is like middleware which is used to check state before and after action is dispatch
+
+// redux prebuild logger
+const middleWares = [process.env.NODE_ENV !== 'production' && logger].filter(Boolean);//[fn]
+
+//custom middleware
+//const middleWares = [myloggerMiddleWare];
+
+
+const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+
+//const composedEnhancers = composeEnhancers(applyMiddleware(...middleWares));
+
+//firstArgument: reducer,
+//secondArgument(optional): if you want to add any additional default states
+//thirdArguments(optional): middleware
+//export const store = createStore(persistedReducer,undefined,composedEnhancers)
+
+export const store = configureStore({
+  reducer:persistedReducer,
+  //middleware:middleWares // default redux-thunk middleware available in redux-toolkit
+
+  // to fixed below error
+  //if we passed payload which comes from firebase which is not string,object, but it is kind of non-serializable values such as Promises, Symbols, Maps/Sets, functions, or class instances then we show error
+  //A non-serializable value was detected in an action, in the path: `payload`. Value:
+  middleware:(getDefaultMiddleware) => getDefaultMiddleware({serializableCheck:false}).concat(middleWares)
+  
+  //which return default middlware and then we can concat with our custom middleware as well
+})
+
+
 
 export const persistor =persistStore(store)
 
-/*
-Flow of Redux Updates with useSelector
 
+
+/*
+Flow of Redux Updates with useSelector if you are using  in case of redux-thunk 
 
 1.) Action Dispatch:
 
@@ -108,6 +112,7 @@ Yes, this is the correct flow! It ensures a clean and predictable state manageme
 Action → Reducer → Store Update → useSelector → UI Re-render.
 This guarantees that the UI is always driven by the latest state from the Redux store, avoiding inconsistencies.
 */
+
 
 
 

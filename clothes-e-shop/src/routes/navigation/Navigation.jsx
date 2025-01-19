@@ -6,7 +6,7 @@ import {NavigationContainer,LogoContainer,NavLinks,NavLink} from  "./navigation.
 import CartIcon from "../../components/cart-icon/CartIcon";
 import CartDropdown from '../../components/cart-dropdown/CartDropdown';
 import {userSelector} from "../../store/user/user.selector.js"
-import {selectIsCartOpen} from "../../store/cart/cart.selector"
+import {selectIsCartOpen} from "../../store/cart-old/cart.selector"
 import {signOutStart} from "../../store/user/user.reducer.js";
 import {LogOutUser} from "../../utils/firebase/firebase.config.js"
 

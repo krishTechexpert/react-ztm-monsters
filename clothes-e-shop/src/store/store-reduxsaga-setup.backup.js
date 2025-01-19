@@ -4,7 +4,7 @@ import {createStore,compose,applyMiddleware} from 'redux'
 import logger from 'redux-logger'
 import {persistStore,persistReducer} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import { rootReducer } from './root-reducers'
+import { rootReducer } from './root-reducers-slice'
 import{myloggerMiddleWare} from "./middleware/logger"
 
 import createSagaMiddleware from "redux-saga"

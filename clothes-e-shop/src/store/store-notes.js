@@ -1,8 +1,6 @@
 import {createStore,compose,applyMiddleware} from 'redux'
 //import logger from 'redux-logger'
-import {persistStore,persistReducer} from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
-import { rootReducer } from './root-reducers'
+import { rootReducer } from './root-reducers-slice'
 
 //whenever you dispatch an action before that action hits the reducer, it hits the middleware(logger,redux-thunk) first.
 // logger is like middleware which is used to check state before and after action is dispatch
@@ -38,18 +36,7 @@ const composedEnhancers = compose(applyMiddleware(...middleWares));
 //firstArgument: reducer,
 //secondArgument(optional): if you want to add any additional default states
 //thirdArguments(optional): middleware
-
-const persistConfig={
-  key:'root',
-  storage, // default stotage is localstorage,
-  blacklist:['user'] // user will not put in localstorage
-}
-
-const persistedReducer = persistReducer(persistConfig,rootReducer)
-
-export const store = createStore(persistedReducer,undefined,composedEnhancers)
-
-export const persistor =persistStore(store)
+export const store = createStore(rootReducer,undefined,composedEnhancers)
 
 /*
 Flow of Redux Updates with useSelector
@@ -87,9 +74,6 @@ The store replaces the old state with the new state returned by the reducer.
 All useSelector hooks in your app are automatically triggered when the Redux store's state updates.
 The selector functions will compare the previous state and the new state.
 If the selected part of the state has changed, the component using that useSelector will re-render.
-
-Action → Reducer → Store Update → useSelector → UI Re-render.
-
 
 5.) UI Component Re-Renders:
 
