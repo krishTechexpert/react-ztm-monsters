@@ -46,12 +46,12 @@
 import {createSelector} from 'reselect'
 import { CategoriesState } from './category.reducer'
 import {CategoryMap,Category} from "./category.types";
+import { RootState } from '../store';
 // So create selector does that with selectors.
 
 // It memorizes them, assuming that as long as the inputs have not changed, then your output should always  be the same(previous state).
 
-//we have not defined type of state so we used here any which is not recommend
-const selectCategoryReducer = (state:any):CategoriesState => {
+const selectCategoryReducer = (state:RootState):CategoriesState => {
   console.log('selector 1 fired')
  return state.categories // which points to categoriesReducer which return {categories:[...]}
 }

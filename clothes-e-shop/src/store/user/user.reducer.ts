@@ -14,6 +14,14 @@ const INITIAL_STATE:UserState={
   isLoading:false,
   error:null
 }
+/*AnyAction: Represents any action that at least has a type property of type string.
+//This is the default action type in Redux when no specific structure is defined.
+//It's less strict than defining a custom action type but allows for flexibility if you have various action types with different payloads.
+
+When to Use AnyAction
+Use AnyAction when:
+You have diverse action structures and don't want to create a detailed type for all possible actions.*/
+
 
 export const userReducer = (state=INITIAL_STATE,action:AnyAction) => {
   if(signInSuccess.match(action)){

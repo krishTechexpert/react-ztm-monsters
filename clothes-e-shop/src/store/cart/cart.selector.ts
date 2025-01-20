@@ -1,5 +1,6 @@
 import { createSelector } from "reselect";
 import { CartState } from "./cart.reducer";
+import { RootSate } from "../store";
 //cart state in store
 // state = {
 //   user: {
@@ -13,9 +14,8 @@ import { CartState } from "./cart.reducer";
   //   }
 
 // }
-//we have not defined type of state so we used here any which is not recommend
 
-const selectCartState = (state:any):CartState => state.cart;
+const selectCartState = (state:RootSate):CartState => state.cart;
 
 export const selectCartItems = createSelector(
   [selectCartState], // if input change then selectCartState output will send to as cart input argument here 
