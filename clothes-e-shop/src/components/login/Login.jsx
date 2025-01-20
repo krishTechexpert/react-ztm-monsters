@@ -1,11 +1,11 @@
 import React,{useState} from 'react'
-import {signInWithGooglePopup,createUserDocumentFromAuth,LoginUserWithEmailAndPassword} from "../../utils/firebase/firebase.config"
+import {signInWithGooglePopup,createUserDocumentFromAuth,LoginUserWithEmailAndPassword} from "../../utils/firebase/firebase.config-backup"
 import FormInput from '../form-input/FormInput';
 import "./login-styles.scss";
 import Button,{BUTTON_TYPES_CLASSES} from "../button/Button";
 import { useDispatch } from 'react-redux';
-import {googleSignInStart,emailSignInStart} from "../../store/user/user.action"
-import { setCurrentUser } from '../../store/user/user.reducer';
+import {googleSignInStart,emailSignInStart} from "../../store/user-slice-old/user.action"
+import { setCurrentUser } from '../../store/user-slice-old/user.reducer';
 const defaultFormFields = {
   email:'',
   password:'',

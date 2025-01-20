@@ -1,7 +1,7 @@
 
 import {CATEGORY_ACTION_TYPES} from "./category.types";
 import {call,put,takeLatest,all} from "redux-saga/effects"
-import { getCategoriesAndDocuments } from "../../utils/firebase/firebase.config"
+import { getCategoriesAndDocuments } from "../../utils/firebase/firebase.config-backup"
 import { fetchCategoriesSuccess,fetchCategoriesError } from "./category.action"
 
 

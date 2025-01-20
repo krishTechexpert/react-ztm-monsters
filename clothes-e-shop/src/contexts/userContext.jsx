@@ -1,5 +1,5 @@
 import React,{createContext,useState,useEffect,useReducer} from "react";
-import {onAuthStateChangedListener,createUserDocumentFromAuth, LogOutUser} from "../utils/firebase/firebase.config";
+import {onAuthStateChangedListener,createUserDocumentFromAuth, LogOutUser} from "../utils/firebase/firebase.config-backup";
 export const UserContext = createContext({
   currentUser: null, // Default user when no provider is present
   setCurrentUser: () => console.log("No provider, no action"), // No-op function

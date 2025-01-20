@@ -3,7 +3,7 @@ import "./checkout-styles.scss"
 import CheckoutItems from '../../components/checkout-items/CheckoutItems'
 import { useSelector } from 'react-redux'
 
-import {selectCartTotal,selectCartItems} from "../../store/cart-old/cart.selector"
+import {selectCartTotal,selectCartItems} from "../../store/cart-slice-old/cart.selector"
 import PaymentForm from '../../components/payment-form/PaymentForm'
 
 

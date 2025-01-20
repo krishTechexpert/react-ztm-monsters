@@ -2,12 +2,19 @@ import { createSelector } from "reselect";
 import { CartState } from "./cart.reducer";
 //cart state in store
 // state = {
-//   cart: {
-//     cartItems:[],
-//      isCartOpen:false
+//   user: {
+//     currentUser:null,
+//      isLoading:false,
+//        error:null
 //   },
+//cart: {
+  //     cartItems:[],
+  //      isCartOpen:false
+  //   }
 
 // }
+//we have not defined type of state so we used here any which is not recommend
+
 const selectCartState = (state:any):CartState => state.cart;
 
 export const selectCartItems = createSelector(

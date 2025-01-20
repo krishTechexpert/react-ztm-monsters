@@ -5,10 +5,10 @@ import logo from "../../assets/crown.svg"
 import {NavigationContainer,LogoContainer,NavLinks,NavLink} from  "./navigation.styles.jsx";
 import CartIcon from "../../components/cart-icon/CartIcon";
 import CartDropdown from '../../components/cart-dropdown/CartDropdown';
-import {userSelector} from "../../store/user/user.selector.js"
-import {selectIsCartOpen} from "../../store/cart-old/cart.selector"
-import {signOutStart} from "../../store/user/user.reducer.js";
-import {LogOutUser} from "../../utils/firebase/firebase.config.js"
+import {userSelector} from "../../store/user-slice-old/user.selector.js"
+import {selectIsCartOpen} from "../../store/cart-slice-old/cart.selector"
+import {signOutStart} from "../../store/user-slice-old/user.reducer.js";
+import {LogOutUser} from "../../utils/firebase/firebase.config-backup.js"
 
 export default function Navigation() {
   const dispatch = useDispatch()

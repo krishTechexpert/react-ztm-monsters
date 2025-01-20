@@ -4,7 +4,7 @@ import { USER_ACTION_TYPES } from './user.types'
 
 import {signInSuccess,signInFailed, signUpFailed,signUpSuccess, signOutSuccess, signOutFailed} from "./user.action"
 
-import { getCurrentUser,createUserDocumentFromAuth,signInWithGooglePopup,createAuthUserWithEmailAndPassword,LoginUserWithEmailAndPassword,LogOutUser} from '../../utils/firebase/firebase.config'
+import { getCurrentUser,createUserDocumentFromAuth,signInWithGooglePopup,createAuthUserWithEmailAndPassword,LoginUserWithEmailAndPassword,LogOutUser} from '../../utils/firebase/firebase.config-backup'
 
 
 export function* getSnapshotFromUserAuth(userAuth,additionalDetails){

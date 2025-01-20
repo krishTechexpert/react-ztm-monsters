@@ -7,7 +7,7 @@ import ShopCategory from '../shop-category/ShopCategory';
 import { useDispatch } from "react-redux";
 
 import {fetchCategoriesSuccess} from "../../store/categories/category.action";
-import { getCategoriesAndDocuments } from '../../utils/firebase/firebase.config';
+import { getCategoriesAndDocuments } from '../../utils/firebase/firebase.config-backup';
 
 export default function Shop() {
   const dispatch=useDispatch(); 

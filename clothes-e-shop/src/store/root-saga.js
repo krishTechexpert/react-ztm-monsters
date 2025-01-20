@@ -1,6 +1,6 @@
 import {call,all} from 'redux-saga/effects'
 import {categoriesSaga} from "./categories/category.saga"
-import {userSagas} from "./user/user.saga"
+import {userSagas} from "./user-slice-old/user.saga"
 
 /** step to flow of data categories list
  *1. to get categories list, react first send this action to middleware(if you used any other middleware such as reux-logger, but not send to saga middleware) after that goes to specied reducer according to action, (hit reducer first (categoriesReducer))

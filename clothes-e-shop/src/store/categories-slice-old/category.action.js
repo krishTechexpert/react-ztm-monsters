@@ -1,5 +1,5 @@
 import {CATEGORY_ACTION_TYPES} from "./category.types";
-import {getCategoriesAndDocuments} from "../../utils/firebase/firebase.config"
+import {getCategoriesAndDocuments} from "../../utils/firebase/firebase.config-backup"
 
 export const fetchCategoriesStart = () => {
   return {type:CATEGORY_ACTION_TYPES.FETCH_CATEGORIES_START,}

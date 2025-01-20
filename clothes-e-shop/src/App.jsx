@@ -9,8 +9,8 @@ import Authentication from './routes/authentication/Authentication';
 import Shop from './routes/shop/Shop';
 import Checkout from './routes/checkout/Checkout';
 
-import {setCurrentUser} from "./store/user/user.reducer";
-import {onAuthStateChangedListener,createUserDocumentFromAuth} from "./utils/firebase/firebase.config"
+import {setCurrentUser} from "./store/user-slice-old/user.reducer";
+import {onAuthStateChangedListener,createUserDocumentFromAuth} from "./utils/firebase/firebase.config-backup"
 
 
 function App() {
