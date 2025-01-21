@@ -37,6 +37,7 @@ export const googleSignInStart = withMatcher(():GoogleSignInStart => {
   //return {type:USER_ACTION_TYPES.GOOGLE_SING_IN_START}
 })
 
+//enter username and password
 export const emailSignInStart = withMatcher((email:string,password:string):EmailSignInStart => {
   return createAction(USER_ACTION_TYPES.EMAIL_SIGN_IN_START,{email,password})
   //return {type:USER_ACTION_TYPES.EMAIL_SIGN_IN_START,payload:{email,password}}

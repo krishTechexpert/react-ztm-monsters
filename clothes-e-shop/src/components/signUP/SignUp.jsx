@@ -36,8 +36,8 @@ export default function SignUp() {
       return;
     }
     try{
-      const {user} = await createAuthUserWithEmailAndPassword(email,password);
-      await createUserDocumentFromAuth(user,{displayName}) 
+      //onst {user} = await createAuthUserWithEmailAndPassword(email,password);//for redux-thunk
+      //await createUserDocumentFromAuth(user,{displayName}) //for redux-thunk
       dispatch(signUpStart(email,password,displayName)) // resux-saga
       setFormFields(defaultFormFields)
     }catch(error){

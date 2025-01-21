@@ -1,11 +1,10 @@
 import React,{useState} from 'react'
-import {signInWithGooglePopup,createUserDocumentFromAuth,LoginUserWithEmailAndPassword} from "../../utils/firebase/firebase.config-backup"
+import {signInWithGooglePopup,createUserDocumentFromAuth,LoginUserWithEmailAndPassword} from "../../utils/firebase/firebase.config"
 import FormInput from '../form-input/FormInput';
 import "./login-styles.scss";
 import Button,{BUTTON_TYPES_CLASSES} from "../button/Button";
 import { useDispatch } from 'react-redux';
-import {googleSignInStart,emailSignInStart} from "../../store/user-slice-old/user.action"
-import { setCurrentUser } from '../../store/user-slice-old/user.reducer';
+import {googleSignInStart,emailSignInStart} from "../../store/user/user.action"
 const defaultFormFields = {
   email:'',
   password:'',
@@ -36,17 +35,17 @@ export default function Login() {
         
         // The warning about "Cross-origin redirect sign-in is no longer supported in many browsers" means that certain browsers (like Chrome) have started to enforce stricter security policies, which can block cross-origin redirects for authentication.
 
-    const {user} = await signInWithGooglePopup()// for I used redux-thunk
-    dispatch(setCurrentUser(user))
-    //dispatch(googleSignInStart()) // redux-saga used here
+    //const {user} = await signInWithGooglePopup()// for I used redux-thunk
+    //dispatch(setCurrentUser(user))
+    dispatch(googleSignInStart()) // redux-saga used here
   }
 
   const handleSubmit = async(event) => {
     event.preventDefault();
     
     try{
-      const {user} = await LoginUserWithEmailAndPassword(email,password); //for redux-thunk
-      //dispatch(emailSignInStart(email,password)) // redux saga
+      //const {user} = await LoginUserWithEmailAndPassword(email,password); //for redux-thunk
+      dispatch(emailSignInStart(email,password)) // redux saga
       setFormFields(defaultFormFields)
     }catch(error){
       switch(error.code){
