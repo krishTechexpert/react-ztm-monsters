@@ -9,15 +9,15 @@ import Authentication from './routes/authentication/Authentication';
 import Shop from './routes/shop/Shop';
 import Checkout from './routes/checkout/Checkout';
 
-import {setCurrentUser} from "./store/user-slice-old/user.reducer";
-import {onAuthStateChangedListener,createUserDocumentFromAuth} from "./utils/firebase/firebase.config-backup"
+import {setCurrentUser} from "./store/user/user.action";
+import {onAuthStateChangedListener,createUserDocumentFromAuth} from "./utils/firebase/firebase.config"
 
 
 function App() {
   const dispatch=useDispatch(); 
   
   // Immutable middleware concept
-  const res = useSelector(state => state.user.test) // test:[3,2,1] or test:{a:1}
+  //const res = useSelector(state => state.user.test) // test:[3,2,1] or test:{a:1}
   //res.sort()
   //res.a=2; we are try to modify value of a directly inside store which give error
 //res.sort()//middleware also help keta hai to prevent directly state ko chnage nhi ker sekty inside store , which give error such as Uncaught TypeError: Cannot assign to read only property '0' of object '[object Array]'

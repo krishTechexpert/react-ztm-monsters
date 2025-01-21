@@ -6,19 +6,21 @@ import ShopCategory from '../shop-category/ShopCategory';
 
 import { useDispatch } from "react-redux";
 
-import {fetchCategoriesSuccess} from "../../store/categories/category.action";
-import { getCategoriesAndDocuments } from '../../utils/firebase/firebase.config-backup';
+import {fetchCategoriesSuccess,fetchCategoriesStart} from "../../store/categories/category.action";
+import { getCategoriesAndDocuments } from '../../utils/firebase/firebase.config';
 
 export default function Shop() {
   const dispatch=useDispatch(); 
 
 useEffect(() => {
-//  dispatch(fetchCategoriesStart()) //call for saga action
-const getCategoriesMap = async () => {
-  const categoriesarray =   await getCategoriesAndDocuments()
-  dispatch(fetchCategoriesSuccess(categoriesarray))
-}
-getCategoriesMap()
+  dispatch(fetchCategoriesStart()) //call for saga action
+
+  //without saga
+// const getCategoriesMap = async () => {
+//   const categoriesarray =   await getCategoriesAndDocuments()
+//   dispatch(fetchCategoriesSuccess(categoriesarray))
+// }
+//getCategoriesMap()
 
 },[])
   return (
