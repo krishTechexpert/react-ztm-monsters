@@ -1,5 +1,6 @@
-import React,{useState} from 'react'
+import React,{FormEvent,ChangeEvent, useState} from 'react'
 import {signInWithGooglePopup,createUserDocumentFromAuth,LoginUserWithEmailAndPassword} from "../../utils/firebase/firebase.config"
+import { AuthError,AuthErrorCodes } from 'firebase/auth';
 import FormInput from '../form-input/FormInput';
 import "./login-styles.scss";
 import Button,{BUTTON_TYPES_CLASSES} from "../button/Button";
@@ -15,7 +16,7 @@ export default function Login() {
   const [formFields,setFormFields]=useState(defaultFormFields);
   const {email,password}=formFields;
 
-  const handleChange = (event) => {
+  const handleChange = (event:ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     const {name,value}=event.target;
     setFormFields((prev) => {
@@ -40,7 +41,7 @@ export default function Login() {
     dispatch(googleSignInStart()) // redux-saga used here
   }
 
-  const handleSubmit = async(event) => {
+  const handleSubmit = async(event:FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     
     try{
@@ -48,17 +49,19 @@ export default function Login() {
       dispatch(emailSignInStart(email,password)) // redux saga
       setFormFields(defaultFormFields)
     }catch(error){
-      switch(error.code){
-        case 'auth/invalid-credential':
+      const authError = error as AuthError;
+
+      switch(authError.code){
+        case AuthErrorCodes.INVALID_LOGIN_CREDENTIALS:
           alert('incorrect password and email')
           break
         
-        case 'auth/user-not-found':
+        case AuthErrorCodes.APP_NOT_AUTHORIZED:
           alert('user not found')
           break
 
         default:
-          console.log('user login failed',error)
+          console.log('user login failed',authError)
     
       }
       
@@ -81,7 +84,7 @@ export default function Login() {
 
       }} /> */}
         <FormInput label="Email" type="email" required  name="email" onChange={handleChange} value={email} />
-        <FormInput label="Password" type="password" required name="password" onChange={handleChange} value={password} />
+        <FormInput  label="Password" type="password" required name="password" onChange={handleChange} value={password} />
         <div className='btn-group'>
         <Button type="submit">Login</Button>
         <Button type="button" onClick={loginWithGoogle} buttonType={BUTTON_TYPES_CLASSES.google}>Login with Google</Button>

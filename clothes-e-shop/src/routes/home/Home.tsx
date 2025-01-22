@@ -1,8 +1,15 @@
 import Product from '../../components/Product'
 import { Outlet } from 'react-router-dom';
+
+export type CategoriesDesc = {
+  id:number,
+  title:string,
+  imageUrl:string;
+} 
+
 function Home() {
 
-  const categories=[
+  const categories:CategoriesDesc[]=[
     {
       "id": 1,
       "title": "hats",

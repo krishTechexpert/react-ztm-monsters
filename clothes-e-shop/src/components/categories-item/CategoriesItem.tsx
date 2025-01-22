@@ -1,8 +1,13 @@
 import React from 'react'
 import {useNavigate} from "react-router-dom";
 import {BackgroundImage,Body,CategoryContainer} from  './categories-styles.jsx'
+import { CategoriesDesc } from '../../routes/home/Home.js';
 
-export default function CategoriesItem({category}) {
+type CategroiesItemProps = {
+  category:CategoriesDesc
+}
+
+export default function CategoriesItem({category}:CategroiesItemProps) {
   const navigate = useNavigate();
   const {title,imageUrl}=category;
     function handleCategory(){

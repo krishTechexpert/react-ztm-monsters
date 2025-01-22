@@ -2,6 +2,8 @@
   "compilerOptions": {
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
+    "typeRoots": ["./node_modules/@types"],
+    "types": [],
     "allowJs": true,
     "downlevelIteration":true,
     "skipLibCheck": true,
@@ -17,5 +19,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"]
+  "include": ["src","src/custom.d.ts"]
 }

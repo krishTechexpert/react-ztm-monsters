@@ -13,7 +13,11 @@ export const CartIconContainer = styled.div`
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  
+
+  svg,img{
+    width:24px;
+    height:24px;
+  }
 `
 export const ItemCount = styled.span`
   position: absolute;

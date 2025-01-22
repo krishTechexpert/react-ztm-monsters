@@ -4,7 +4,14 @@ import Button,{BUTTON_TYPES_CLASSES} from "../button/Button";
 import {addItemToCart} from "../../store/cart/cart.action";
 import { useDispatch,useSelector } from 'react-redux';
 import {selectCartItems} from "../../store/cart/cart.selector";
-export default function ProductCard({product}) {
+import { CategoryItem } from '../../store/categories/category.types';
+
+type ProductCardProps = {
+  product: CategoryItem;
+};
+
+
+export default function ProductCard({product}:ProductCardProps) {
   const dispatch = useDispatch();
   const {name,price,imageUrl} = product;
   const cartItems = useSelector(selectCartItems)

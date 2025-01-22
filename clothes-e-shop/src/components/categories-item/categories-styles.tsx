@@ -2,8 +2,12 @@ import styled from "styled-components"
 //note
 // we pick things first that are targetng first such as BackgroundImage,Body which is used on hover inside CategoryContainer
 
+type BackgroundImageProps = {
+  imageUrl: string;
+};
+
 // passed props imageUrl
-export const BackgroundImage = styled.div`
+export const BackgroundImage = styled.div<BackgroundImageProps>`
   width: 100%;
   height: 100%;
   background-size: cover;
